@@ -1,16 +1,42 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Header from './Header'
 import Note from './Note'
 import Footer from './Footer'
-import notes from './notes'
 import CreateArea from './CreateArea'
 
 function App() {
+  // we need to add the notes to an array
+  const [note, setNote] = useState([])
+
+  function addNote(newnote) {
+    setNote((prevNotes) => {
+      return [...prevNotes, newnote]
+    })
+  }
+  function deleteNote(id) {
+    // console.log('This delete was triggered')
+    setNote((prevNote) => {
+      return prevNote.filter((noteItem, index) => {
+        return index !== id
+      })
+    })
+  }
   return (
     <div>
       <Header />
-      <CreateArea />
-      <Note key={1} title='Note title' content='Note content' />
+      <CreateArea onAdd={addNote} />
+      {note.map((noteItems, index) => {
+        return (
+          <Note
+            key={index}
+            id={index}
+            title={noteItems.title}
+            content={noteItems.content}
+            onDelete={deleteNote}
+          />
+        )
+      })}
+
       <Footer />
     </div>
   )
