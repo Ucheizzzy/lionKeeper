@@ -9,6 +9,8 @@ html {
 body {
   background: #eee;
   padding: 0 16px;
+  background-color: #d6c366;
+  background-image: url('https://www.transparenttextures.com/patterns/brick-wall-dark.png');
 }
 
 .header {
