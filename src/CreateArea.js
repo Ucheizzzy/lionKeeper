@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
+import AddIcon from '@material-ui/icons/Add'
 
 function CreateArea(props) {
+  const [isExpanded, setExpanded] = useState(false)
   const [notes, setNotes] = useState({
     title: '',
     content: '',
@@ -26,9 +28,13 @@ function CreateArea(props) {
     })
     event.preventDefault()
   }
+
+  function expand() {
+    setExpanded(true)
+  }
   return (
     <div>
-      <form>
+      <form className='create-note'>
         <input
           name='title'
           placeholder='Title'
@@ -36,13 +42,17 @@ function CreateArea(props) {
           onChange={handleChange}
         />
         <textarea
+          onClick={expand}
           name='content'
           placeholder='Take a note...'
           value={notes.content}
           onChange={handleChange}
-          rows='3'
+          rows={isExpanded ? 3 : 1}
         />
-        <button onClick={submitNote}>Add</button>
+
+        <button onClick={submitNote}>
+          <AddIcon />
+        </button>
       </form>
     </div>
   )
